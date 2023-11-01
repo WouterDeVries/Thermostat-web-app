@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.limitslider.js"></script>
+  <script src="js/api.js"></script>
+  <link href="css/jquery-ui.min.css" rel="stylesheet"/>
+  <link href="css/sliders.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="portrait">
+  <img id="toLandscape" src="images/rotatelandscape.png" style="width:200px;height:200px;">
+  <a href="thermostat.html"><img id="back" src="images/back.png" style="width:30px;height:30px;display:none"></a>
+  <h2 id="pleaseRotate">Please rotate your device</h2>
+</div>
+<div id="landscape">
+<div class="example-gaps" id="slideMonday"></div>
+<div class="example-gaps" id="slideTuesday"></div>
+<div class="example-gaps" id="slideWednesday"></div>
+<div class="example-gaps" id="slideThursday"></div>
+<div class="example-gaps" id="slideFriday"></div>
+<div class="example-gaps" id="slideSaturday"></div>
+<div class="example-gaps" id="slideSunday"></div>
+
+
+<a href="thermostat.html"><img id="backLandscape" src="images/back.png" style="width:30px;height:30px;"></a>
+<a href="setdefault.html"><h2 id="setDefaultButtonRound">Set Default</h2></a>
+
+<h1 id="dayHeader">Tap day to edit<h1>
+
+<hr id="sideLine"/>
+<hr id="topLine"/>
+
+  <a href="Monday.html"><h2 class="week" id="Monday">M</h2></a>
+  <a href="Tuesday.html"><h2 class="week" id="Tuesday">Tu</h2></a>
+  <a href="Wednesday.html"><h2 class="week" id="Wednesday">W</h2></a>
+  <a href="Thursday.html"><h2 class="week" id="Thursday">Th</h2></a>
+  <a href="Friday.html"><h2 class="week" id="Friday">F</h2></a>
+  <a href="Saturday.html"><h2 class="week" id="Saturday">Sa</h2></a>
+  <a href="Sunday.html"><h2 class="week" id="Sunday">Su</h2></a>
+<div id="noClickDiv">
+</div>
+
+
+</div>
+<script>
+$(document).ready(function(){
+
+  $("#submitButton").click(function(){
+    var startTime = document.getElementById('startTime').value;
+    var endTime = document.getElementById('endTime').value;
+    addPeriod("Monday", startTime, endTime);
+  });
+
+  $("#removeButton").click(function(){
+    removePeriod("Monday", 0);
+    location.reload();
+  });
+
+  $("#setDefaultButton").click(function(){
+    setDefault();
+  });
+
+
+    $('.example-gaps').limitslider({
+      values:   [],
+        min:       0,
+        max:      1440,
+        label: function (value) {
+          return minutesToTime(value);
+        },
+        title: function (value) {
+          return 'Currently set to '+value+'%';
+        },
+        showRanges: true,
+   });
+
+
+
+
+
+function refreshSchedule (day) {
+var weekProgram = getWeekProgram();
+  $('#slide'+day).limitslider({
+    values:   [],});
+  for (slot = 0; slot <= 4; slot++) {
+    if (weekProgram[day][slot] == null) {} else {
+    var split = (weekProgram[day][slot]+"").split(",");
+    var first = timeToMinutes(split[0]);
+    var second = timeToMinutes(split[1]);
+    $("#slide"+day).limitslider("insert", 0, first, false);
+    $("#slide"+day).limitslider("insert", 1, second, {styleClass:"range"});
+  }
+  }
+}
+
+refreshSchedule("Monday");
+refreshSchedule("Tuesday");
+refreshSchedule("Wednesday");
+refreshSchedule("Thursday");
+refreshSchedule("Friday");
+refreshSchedule("Saturday");
+refreshSchedule("Sunday");
+
+setInterval(function() {refreshSchedule("Monday"); }, 1000);
+setInterval(function() {refreshSchedule("Tuesday"); }, 1000);
+setInterval(function() {refreshSchedule("Wednesday"); }, 1000);
+setInterval(function() {refreshSchedule("Thursday"); }, 1000);
+setInterval(function() {refreshSchedule("Friday"); }, 1000);
+setInterval(function() {refreshSchedule("Saturday"); }, 1000);
+setInterval(function() {refreshSchedule("Sunday"); }, 1000);
+
+
+
+
+
+
+
+
+  function minutesToTime(value) {
+    var hours = Math.floor(value/60);
+    var minutes = (value%60).toFixed(0);
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    return hours + ":" + minutes;
+  }
+
+  function timeToMinutes(value) {
+    var split = value.split(":");
+    return parseInt(60*split[0]) + parseInt(split[1]);
+  }
+
+// Stay in webapp
+  function fullscreen() {
+      $('a').click(function() {
+          if(!$(this).hasClass('noeffect')) {
+              window.location = $(this).attr('href');
+              return false;
+          }
+      });
+  }
+
+  fullscreen();
+
+});
+</script>
+</body>
+</html>

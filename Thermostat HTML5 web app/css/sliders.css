@@ -1,0 +1,250 @@
+@media (orientation: portrait) {
+#landscape { display: none; }
+#toLandscape {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 40%;
+}
+#pleaseRotate {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 60%;
+  font-size: 30px;
+  color: white;
+  text-align: center;
+}
+#back {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 6%;
+  top: 5%;
+}
+}
+
+@media (orientation: landscape) {
+#landscape { display: block; }
+#portrait {display: none;}
+}
+
+html, body, #landscape {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: rgb(55, 63, 72);
+  font-family: "Helvetica";
+}
+
+.example-gaps {
+  left: 9%;
+  top: 14%;
+  background: rgb(66, 74, 83);
+  margin-bottom: 4.76%;
+  width: 85.8%;
+}
+
+.example-gaps .ui-slider-handle-odd {
+    background: rgb(237, 128, 0);
+    top: -15px;
+    color: white;
+    border-color: rgb(237, 128, 0);
+    border-radius: 4px;
+}
+
+.example-gaps .ui-slider-handle-even {
+    background: rgb(0, 104, 255);
+    top: 5px;
+    color: white;
+    border-color: rgb(0, 104, 255);
+    border-radius: 4px;
+}
+
+.example-gaps .range {
+    background: rgb(211, 213, 215);
+}
+
+#startTime {
+  position: absolute;
+  top: 20%;
+  left: 30%;
+}
+#endTime {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+}
+#submitButton {
+  position: absolute;
+  top: 60%;
+  left: 20%;
+}
+#removeButton {
+  position: absolute;
+  top: 60%;
+  left: 30%;
+}
+#setDefaultButton {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+}
+
+#sideLine {
+  position: absolute;
+  width: 1;
+  left: 8%;
+  top: -4%;
+  height: 101%;
+}
+#topLine {
+  position: absolute;
+  left: 0%;
+  width: 100%;
+  top: 7%;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.week {
+  left: 3.95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  background-color: rgb(66, 74, 83);
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+#Monday {
+  top: 13.6%;
+}
+#Tuesday {
+  top: 26.05%;
+}
+#Wednesday {
+  top: 38.5%;
+}
+#Thursday {
+  top: 50.95%;
+}
+#Friday {
+  top: 63.4%;
+}
+#Saturday {
+  top: 75.85%;
+}
+#Sunday {
+  top: 88.3%;
+}
+
+#dayHeader {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 54%;
+  top: 3.5%;
+  color: white;
+  font-size: 20px;
+}
+
+#periodBar {
+  position: absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+.periods {
+  font-size: 15px;
+  color: white;
+
+}
+
+#backLandscape {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 4%;
+  top: 7%;
+}
+
+#setDefaultButtonRound {
+  position: absolute;
+  top: 3.5%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66,74,83);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  color: white;
+  cursor: pointer;
+}
+
+#noClickDiv {
+  position: absolute;
+  z-index: 10;
+  width: 92%;
+  height: 90%;
+  background-color: transparent;
+  top: 10%;
+  left: 8%;
+}
+
+/******* setDefault
+*/
+#setDefaultButtonRoundPage {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66,74,83);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  color: white;
+  cursor: pointer;
+}
+
+#warning1 {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px 10px;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+}
+
+#warning2 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px 10px;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+}
+
+#cancelSetDefault {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66,74,83);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  color: white;
+  cursor: pointer;
+}

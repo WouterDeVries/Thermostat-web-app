@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  <script src="js/jquery.limitslider.js"></script>
+  <script src="js/api.js"></script>
+  <link href="css/jquery-ui.min.css" rel="stylesheet"/>
+  <link href="css/days.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="portrait">
+  <img id="toLandscape" src="images/rotatelandscape.png" style="width:200px;height:200px;">
+  <h2 id="pleaseRotate">Please rotate your device</h2>
+</div>
+<div id="landscape">
+<div class="example-gaps" id="slideFriday"></div>
+
+<a href="schedule.html"><img id="backLandscape" src="images/back.png" style="width:30px;height:30px;"></a>
+
+<h1 id="dayHeader">Friday<h1>
+
+<hr id="sideLine"/>
+<hr id="topLine"/>
+
+
+  <a href="Monday.html"><h2 class="week" id="Monday">M</h2></a>
+  <a href="Tuesday.html"><h2 class="week" id="Tuesday">Tu</h2></a>
+  <a href="Wednesday.html"><h2 class="week" id="Wednesday">W</h2></a>
+  <a href="Thursday.html"><h2 class="week" id="Thursday">Th</h2></a>
+  <a href="Friday.html"><h2 class="week" id="FridayDay">F</h2></a>
+  <a href="Saturday.html"><h2 class="week" id="Saturday">Sa</h2></a>
+  <a href="Sunday.html"><h2 class="week" id="Sunday">Su</h2></a>
+
+<div id="noClickDiv">
+</div>
+
+<h2 id="daySwitch">Day Switch</h2>
+<input type="time" id="startTime">
+<h2 id="nightSwitch">Night Switch</h2>
+<input type="time" id="endTime">
+
+<h2 id="setPeriodButton">SET</h2>
+<h2 id="deleteAllButton">DELETE ALL</h2>
+
+
+    <p class="periods" id="period0"></p>
+    <p class="periods" id="period1"></p>
+    <p class="periods" id="period2"></p>
+    <p class="periods" id="period3"></p>
+    <p class="periods" id="period4"></p>
+    <p class="periodsa" id="perioda0"></p>
+    <p class="periodsa" id="perioda1"></p>
+    <p class="periodsa" id="perioda2"></p>
+    <p class="periodsa" id="perioda3"></p>
+    <p class="periodsa" id="perioda4"></p>
+
+    <p class="separators" id="separator0">-</p>
+    <p class="separators" id="separator1">-</p>
+    <p class="separators" id="separator2">-</p>
+    <p class="separators" id="separator3">-</p>
+    <p class="separators" id="separator4">-</p>
+
+
+    <img class="trashcans" id="trashcan0" src="images/trashcan.png"><br/>
+    <img class="trashcans" id="trashcan1" src="images/trashcan.png"><br/>
+    <img class="trashcans" id="trashcan2" src="images/trashcan.png"><br/>
+    <img class="trashcans" id="trashcan3" src="images/trashcan.png"><br/>
+    <img class="trashcans" id="trashcan4" src="images/trashcan.png">
+
+<h2 id="daysSetPeriods">Set Periods</h2>
+<p id="warningDays1"></p>
+
+</div>
+<script>
+$(document).ready(function(){
+
+  $("#deleteAllButton").click(function(){
+    var weekProgram = getWeekProgram();
+    for (slot = 0; slot <= 4; slot++) {
+      if (weekProgram["Friday"][0] == null) {} else {
+        removePeriod("Friday", 0);
+      }
+    }
+    location.reload();
+  });
+
+  $("#setPeriodButton").click(function(){
+    var day = "Friday";
+    var weekProgram = getWeekProgram();
+    var startTime = document.getElementById('startTime').value;
+    var endTime = document.getElementById('endTime').value;
+    var startMinutes = timeToMinutes(startTime);
+    var endMinutes = timeToMinutes(endTime);
+    document.getElementById("warningDays1").innerHTML="";
+      if (weekProgram[day][0] != null
+        && weekProgram[day][1] != null
+        && weekProgram[day][2] != null
+        && weekProgram[day][3] != null
+        && weekProgram[day][4] != null) {
+      document.getElementById("warningDays1").innerHTML="NOTE: Maximum number of switches reached.";
+    } else if (endTime === "00:00") {
+      document.getElementById("warningDays1").innerHTML="NOTE: 00:00 is the next day. Use 23:59.";
+    } else if (startMinutes > endMinutes){
+      document.getElementById("warningDays1").innerHTML="NOTE: Day Switch must start before Night Switch.";
+    } else if (startTime == "" && endTime == "") {
+      document.getElementById("warningDays1").innerHTML="NOTE: Enter Day Switch and Night Switch times.";
+    } else if (startTime == "") {
+      document.getElementById("warningDays1").innerHTML="NOTE: Enter a Day Switch time.";
+    } else if (endTime == "") {
+      document.getElementById("warningDays1").innerHTML="NOTE: Enter a Night Switch time.";
+    } else {
+      addPeriod("Friday", startTime, endTime);
+    }
+  });
+
+  $("#trashcan0").click(function(){
+    removePeriod("Friday", 0);
+    location.reload();
+  });
+
+  $("#trashcan1").click(function(){
+    removePeriod("Friday", 1);
+  });
+
+  $("#trashcan2").click(function(){
+    removePeriod("Friday", 2);
+  });
+
+  $("#trashcan3").click(function(){
+    removePeriod("Friday", 3);
+  });
+
+  $("#trashcan4").click(function(){
+    removePeriod("Friday", 4);
+  });
+
+
+
+
+
+    $('.example-gaps').limitslider({
+      values:   [],
+        min:       0,
+        max:      1440,
+        label: function (value) {
+          return minutesToTime(value);
+        },
+        title: function (value) {
+          return 'Currently set to '+value+'%';
+        },
+        showRanges: true,
+   });
+
+
+
+
+
+function refreshSchedule (day) {
+
+var weekProgram = getWeekProgram();
+  $('#slide'+day).limitslider({
+    values:   [],});
+  for (slot = 0; slot <= 4; slot++) {
+    document.getElementById("period" + slot).innerHTML="";
+    document.getElementById("perioda" + slot).innerHTML="";
+    $("#trashcan" + slot).css("display", "none");
+    if (weekProgram[day][slot] == null) {} else {
+    var split = (weekProgram[day][slot]+"").split(",");
+    var first = timeToMinutes(split[0]);
+    var second = timeToMinutes(split[1]);
+    $("#slide"+day).limitslider("insert", 0, first, false);
+    $("#slide"+day).limitslider("insert", 1, second, {styleClass:"range"});
+    document.getElementById("period" + slot).innerHTML= split[0];
+    document.getElementById("perioda" + slot).innerHTML= split[1];
+    $("#trashcan" + slot).css("display", "inline");
+  }
+  }
+  if ((weekProgram[day][0] != null) && (weekProgram[day][1] != null)) {
+    $("#deleteAllButton").css("display", "inline");
+  } else {
+    $("#deleteAllButton").css("display", "none");
+  }
+}
+refreshSchedule("Friday");
+setInterval(function() {refreshSchedule("Friday"); }, 200);
+
+
+
+
+
+
+
+
+  function minutesToTime(value) {
+    var hours = Math.floor(value/60);
+    var minutes = (value%60).toFixed(0);
+    if (hours < 10) {
+      hours = "0" + hours;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    return hours + ":" + minutes;
+  }
+
+  function timeToMinutes(value) {
+    var split = value.split(":");
+    return parseInt(60*split[0]) + parseInt(split[1]);
+  }
+
+// Stay in webapp
+  function fullscreen() {
+      $('a').click(function() {
+          if(!$(this).hasClass('noeffect')) {
+              window.location = $(this).attr('href');
+              return false;
+          }
+      });
+  }
+
+  fullscreen();
+
+});
+</script>
+</body>
+</html>

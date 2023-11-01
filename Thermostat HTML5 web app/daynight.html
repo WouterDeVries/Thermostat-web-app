@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/roundslider.min.js"></script>
+  <link href="css/roundslider.min.css" rel="stylesheet"/>
+  <link href="css/styledaynight.css" rel="stylesheet"/>
+</head>
+<body>
+  <div id="container">
+    <div id="slider"></div>
+    <div id="inner-slider"></div>
+    <h2 id="status"></h2>
+    <h2 id="time"></h2>
+  </div>
+  <a href="settings.html"><img id="settings" src="images/settings.png" style="width:30px;height:30px;"></a>
+  <a><img id="home" src="images/home.png" style="width:20px;height:20px;"></a>
+  <img id="sunDayNight" src="images/sun.png" style="width:30px;height:30px;">
+  <h1 id="title">Thermostat</h1>
+  <h2 id="travelMode"></h2>
+  <h2 id="timeServer"></h2>
+  <h2 id="dayServer">Day Temperature</h2>
+  <hr id="topLine"/>
+  <a href="thermostat.html" style="color: white;"><h2 id="set">SET<h2></a>
+  <a href="thermostat.html" style="color: white;"><h2 id="cancel">CANCEL<h2></a>
+
+  <script>
+  $(document).ready(function(){
+    //Trigger change event after server update//
+    var _fn1 = $.fn.roundSlider.prototype._setValue;
+    $.fn.roundSlider.prototype._setValue = function (e) {
+      _fn1.apply(this, arguments);
+      this._raiseEvent("change");
+    }
+    //**************************************//
+    var timeServer = get("time","time");
+    document.getElementById("timeServer").innerHTML=timeServer;
+    var serverTemp = get("currentTemperature", "current_temperature");
+    var targetTemp = get("targetTemperature", "target_temperature");
+    var snum = new Number(serverTemp);
+    var tnum = new Number(targetTemp);
+    function updatePhoneTemp() {
+      timeServer = get("time","time");
+      document.getElementById("timeServer").innerHTML=timeServer;
+      serverTemp = get("currentTemperature", "current_temperature");
+      targetTemp = get("targetTemperature", "target_temperature");
+      phoneTemp = $("#inner-slider").roundSlider("option", "value");
+      snum = new Number(serverTemp);
+      tnum = new Number(targetTemp);
+      var time = Math.round(Math.abs((targetTemp - serverTemp)) * 10);
+    }
+    setInterval(updatePhoneTemp, 200);
+
+    $("#slider").roundSlider({
+      sliderType: "min-range",
+      radius: 120,
+      showTooltip: true,
+      value: serverTemp,
+      circleShape: "full",
+      startAngle: "315",
+      endAngle: "225",
+      min: "5",
+      max: "30",
+      handleShape: "square",
+      handleSize: "40,20",
+      step: "0.1",
+      change: "changeTooltip",
+      change: "updateStatus",
+      stop: "changeTooltip",
+      tooltipFormat: function(e){
+        var val = e.value.toFixed(1);
+        val = val.replace(/(\d*)(\.)(\d*)/,'<span style="">$1</span><span><span><span style="position:relative;left:5px;bottom:20px;font-size:32px">$3</span>');
+        return val;
+      },
+      editableTooltip: false,
+    });
+
+    $("#inner-slider").roundSlider({
+      step: "0.1",
+      min: "5",
+      max: "30",
+      sliderType: "min-range",
+      radius: 100,
+      showTooltip: true,
+      value: serverTemp,
+      circleShape: "full",
+      startAngle: "315",
+      endAngle: "225",
+      handleShape: "square",
+      handleSize: "0,0",
+      tooltipFormat: function(e){
+        var val = e.value.toFixed(1);
+        val = val.replace(/(\d*)(\.)(\d*)/,'<span style="">$1</span><span><span><span style="position:relative;left:5px;bottom:20px;font-size:32px">$3</span>');
+        return val;
+      },
+      editableTooltip: false,
+
+      create: function() {
+        var intervalID;
+        var that = this;
+        var btn1 = $("<a id='sub'>&#x25BC</a>");
+        var btn2 = $("<a id='add'>&#x25B2</a>");
+        btn1.addClass("noeffect");
+        btn2.addClass("noeffect");
+        this.innerBlock.append(btn1);
+        this.innerBlock.append(btn2);
+        btn1.click(function() {
+          var currentValue = $("#slider").roundSlider("option", "value");
+          $("#slider").roundSlider("setValue", currentValue - 0.1);
+        });
+        btn2.click(function() {
+          var currentValue = $("#slider").roundSlider("option", "value");
+          $("#slider").roundSlider("setValue", currentValue + 0.1);
+        });
+      },
+      stop: function() {
+        var phoneTemp = $("#inner-slider").roundSlider("option", "value");
+        put("targetTemperature", "target_temperature", phoneTemp);
+      }
+    });
+
+// Stay in webapp
+function fullscreen() {
+    $('a').click(function() {
+        if(!$(this).hasClass('noeffect')) {
+            window.location = $(this).attr('href');
+            return false;
+        }
+    });
+}
+
+fullscreen();
+//********************
+var dayTemp = get("dayTemperature", "day_temperature");
+$("#slider").roundSlider("setValue", dayTemp);
+
+$("#set").click(function() {
+  var dayTemp = $("#slider").roundSlider("option", "value");
+  put("dayTemperature", "day_temperature", dayTemp);
+})
+
+  });
+  </script>
+</body>
+</html>

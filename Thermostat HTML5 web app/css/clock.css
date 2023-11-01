@@ -1,0 +1,370 @@
+body {
+  font-family: "Helvetica";
+  background-color: rgb(55, 63, 72);
+  color: white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#container {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#slider, #inner-slider, #slider #inner-slider .rs-container {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#slider .rs-range-color {
+  background: rgb(211, 213, 215);
+
+}
+
+#slider .rs-path-color {
+  background-color: rgb(66,74,83);
+}
+
+#slider .rs-bg-color {
+  background: rgb(55, 63, 72);
+}
+
+#slider .rs-border {
+  border-color: rgb(55, 63, 72);
+  border-width: 4px;
+}
+
+#slider .rs-handle {
+    margin-left: 0px !important;
+    background-color: white;
+  }
+
+#slider .rs-tooltip {
+    top: 50%;
+    font-size: 60px;
+    color: white;
+  }
+
+
+#inner-slider {
+  position: absolute;
+  top: 50%;
+  margin-top: -100px;
+  margin-left: 20px;
+}
+
+#inner-slider
+.rs-range-color,
+.rs-path-color,
+.rs-bg-color {
+  background: transparent;
+}
+
+#inner-slider .rs-border {
+  border-color: transparent;
+}
+
+#inner-slider .rs-handle {
+  margin-left: -20px !important;
+  background-color: white;
+}
+
+#inner-slider .rs-tooltip {
+  color: transparent;
+}
+
+#status {
+  position: absolute;
+  top: 21%;
+  left: 50%;
+  z-index: 1000;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+}
+
+#time {
+  position: absolute;
+  top: 27%;
+  left: 50%;
+  z-index: 1000;
+  font-size: 18px;
+  letter-spacing: 1.4px;
+  transform: translate(-50%, -50%);
+}
+
+
+.inner-handle {
+  position: absolute;
+  left: -45px;
+}
+
+#add, #sub {
+  position: absolute;
+  top: 75%;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+#add {
+  right: 40px;
+}
+
+#sub {
+  left: 40px;
+}
+
+#schedule {
+  position: absolute;
+  top: 92%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#buttons {
+  position: absolute;
+  top: 92%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+#settings {
+  position: absolute;
+  top: 4%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+#home {
+  position: absolute;
+  top: 4%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+#travel {
+  position: absolute;
+  top: 92%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+#travelMode {
+  position: absolute;
+  top: 74%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+}
+#title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  display: none;
+}
+#timeServer {
+  position: absolute;
+  top: 0.1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+#dayServer {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 23px;
+  text-align: center;
+}
+#topLine {
+  position: absolute;
+  left: -10%;
+  width: 110%;
+  top: 4%;
+}
+.rs-bar.rs-start .rs-seperator,
+.rs-bar.rs-end .rs-seperator {
+  display: none;
+}
+
+#dayButton {
+  position: absolute;
+  top: 77%;
+  left: 36%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  text-align: center;
+}
+
+#dayButtonTemp {
+  position: absolute;
+  top: 70%;
+  left: 36%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66,74,83);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+#sun {
+  position: absolute;
+  top: 66%;
+  left: 36%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+#nightButton {
+  position: absolute;
+  top: 77%;
+  left: 64%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  text-align: center;
+}
+#nightButtonTemp {
+  position: absolute;
+  top: 70%;
+  left: 64%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66,74,83);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+#night {
+  position: absolute;
+  top: 66%;
+  left: 64%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+
+
+
+/* Schedule page */
+#scheduleHead {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+#weekDays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#weekday {
+  text-align: center;
+  font-size: 30px;
+  color: white;
+}
+
+/* Switch page */
+#dayHead {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+#leftbox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width:310px;
+	margin-bottom:15px;
+    /*border:3px solid red;*/
+}
+#rightbox{
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width:310px;
+    border:3px solid white;
+}
+#dayDayHead {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+
+
+/* Day/night page */
+#set {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66,74,83);
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+#sunDayNight {
+  position: absolute;
+  top: 66%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+}
+
+#cancel {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66,74,83);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+
+/************* Clock
+****/
+#dropDownMenu {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 58%;
+  top: 40%;
+  font-size: 18px;
+  width: 135px;
+}
+
+#timeDropDown {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 115px;
+  left: 58%;
+  top: 50%;
+  font-size: 18px;
+}
+
+#clockDay{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 28%;
+  top: 37.7%;
+  font-size: 20px;
+}
+
+#clockTime {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 28%;
+  top: 47.7%;
+  font-size: 20px;
+}
